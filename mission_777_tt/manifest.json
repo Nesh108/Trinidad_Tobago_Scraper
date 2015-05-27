@@ -12,9 +12,9 @@
   ],
   "frequency": "monthly",
   "publisher": {
-    "name": "Publisher of the data",
-    "url": "Publisher's website",
-    "terms": "Copyright terms (e.g. Open Government License, n/a, etc)",
-    "terms_url": "A place where these terms can be checked or verified"
+    "name": "Central Bank of Trinidad Tobago",
+    "url": "http://www.central-bank.org.tt/content/banking-sector",
+    "terms": "N/A",
+    "terms_url": "N/A
   }
 }
