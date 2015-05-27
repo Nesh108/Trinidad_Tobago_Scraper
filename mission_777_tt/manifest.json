@@ -1,7 +1,7 @@
 {
   "bot_id": "mission_777_tt",
-  "title": "My simple bot",
-  "description": "This is a simple bot",
+  "title": "Scraper for Central Bank of Trinidad Tobago",
+  "description": "Scraper for Central Bank of Trinidad Tobago. Mission 777",
   "language": "ruby",
   "data_type": "primary data",
   "identifying_fields": [
