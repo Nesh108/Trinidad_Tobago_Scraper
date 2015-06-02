@@ -12,7 +12,7 @@ require 'open-uri'
 Turbotlib.log("Starting scraper for Central Bank of Trinidad and Tobago...") # optional debug logging
 
 # index for JSON object
-index = 0
+index = 1
 
 # Dictionary for bank data
 bank_data = Hash.new
@@ -32,11 +32,13 @@ comm_banks_data = page.css('div[class="field-item even"]').css('p')[4].css('a')
 
 for i in 0..(comm_banks_data.length - 1)
 	bank_data["number"] = index
-	bank_data["type"] = comm_banks_type
-	bank_data["name"] = comm_banks_data[i].text
+	bank_data["jurisdiction_classification"] = comm_banks_type
+	bank_data["company_name"] = comm_banks_data[i].text
 	bank_data["url"] = comm_banks_data[i]['href']
 	bank_data["source_url"] = source_url
 	bank_data["sample_date"] = Time.now
+	bank_data["licence_jurisdiction"] = "tt"
+	bank_data["regulator"] = "Central Bank of Trinidad and Tobago"
 	puts bank_data.to_json
 	index += 1	# increment index
 end
@@ -52,11 +54,13 @@ non_banks_data = page.css('div[class="field-item even"]').css('p')[6].css('a')
 
 for i in 0..(non_banks_data.length - 1)
 	bank_data["number"] = index
-	bank_data["type"] = non_banks_type
-	bank_data["name"] = non_banks_data[i].text
+	bank_data["jurisdiction_classification"] = non_banks_type
+	bank_data["company_name"] = non_banks_data[i].text
 	bank_data["url"] = non_banks_data[i]['href']
 	bank_data["source_url"] = source_url
 	bank_data["sample_date"] = Time.now
+	bank_data["licence_jurisdiction"] = "tt"
+	bank_data["regulator"] = "Central Bank of Trinidad and Tobago"
 	puts bank_data.to_json
 	index += 1	# increment index
 end
@@ -68,15 +72,23 @@ fin_holds_type = page.css('div[class="field-item even"]').css('p')[8].text
 fin_holds_type = fin_holds_type.slice(0..(fin_holds_type.index(' (') - 1))
 
 # Financial Holding Companies data
-fin_holds_data = page.css('div[class="field-item even"]').css('p')[9].text.split("<br>") 
+fin_holds_data = page.css('div[class="field-item even"]').css('p')[9]
+fin_holds_data.search('br').each do |n|
+  n.replace("\n")
+end
+
+fin_holds_data = fin_holds_data.text.split("\n");
 
 for i in 0..(fin_holds_data.length - 1)
 	bank_data["number"] = index
-	bank_data["type"] = fin_holds_type
-	bank_data["name"] = fin_holds_data[i]
+	bank_data["jurisdiction_classification"] = fin_holds_type
+	bank_data["company_name"] = fin_holds_data[i]
 	bank_data["url"] = 'null'
 	bank_data["source_url"] = source_url
 	bank_data["sample_date"] = Time.now
+	bank_data["licence_jurisdiction"] = "tt"
+	bank_data["regulator"] = "Central Bank of Trinidad and Tobago"
 	puts bank_data.to_json
-	index += 1	# increment index
+	index += 1# increment index
+
 end
